@@ -11,5 +11,5 @@ What it does:
 
 The script depends on this software:
 - python
-- ffmpeg
+- ffmpeg (with nvidia nvenc support)
 - ffmpeg-normalize
