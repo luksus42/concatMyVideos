@@ -2,6 +2,7 @@
 
 import getopt
 import os
+import shutil
 import subprocess
 import sys
 
@@ -136,7 +137,7 @@ def main(argv):
   temppath = os.path.expanduser('~/.cache/concatMyVideos')
 
   try:
-    opts, args = getopt.getopt(argv, "hcovd:p:", ["directory=", "prefix="])
+    opts, args = getopt.getopt(argv, "hcvd:p:o:", ["directory=", "prefix="])
   except getopt.GetoptError:
     help
     sys.exit(2)
@@ -164,10 +165,15 @@ def main(argv):
   print('Prefix: ', prefix)
   print()
 
+  if not os.path.exists(output_path):
+    print('output directory does not exist!')
+    print(output_path)
+    sys.exit(2)
+
   if not concat_only:
     print("## cleanup old temp directory, if exists ##")
     if os.path.exists(temppath):
-      os.rmdir(temppath)
+      shutil.rmtree(temppath)
     os.makedirs(temppath)
 
     # file for writing down the list of created files, which will be later concatenated with ffmpeg
