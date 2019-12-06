@@ -43,13 +43,21 @@ class Process:
     # get only int "12" seconds out of the string: "duration=12.3246"
     duration = int(p.stdout.readline().split("=")[1].split(".")[0])
 
+    # if duration > 50:
+    #   start = 12
+    #   length = 8
+    #   while duration >= start + length:
+    #     counter += 1
+    #     self.trim(str(start), str(length), file_path, os.path.join(self.temp_dir, filename + "_" + str(counter) + ".mp4"))
+    #     start = 20 + start + length
     if duration > 50:
-      start = 12
-      length = 8
+      # create a maximum of three 10-seconds-clips out of the whole video
+      start = duration//6
+      length = 10
       while duration >= start + length:
         counter += 1
         self.trim(str(start), str(length), file_path, os.path.join(self.temp_dir, filename + "_" + str(counter) + ".mp4"))
-        start = 20 + start + length
+        start = start + length + duration//6*counter
     elif duration > 30:
       start = 7
       length = 10
