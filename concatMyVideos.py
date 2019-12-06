@@ -119,7 +119,7 @@ class Process:
 
 
 def main(argv):
-  help = print('concatMyVideos.py -d <directory> [-p <sub-dir-search-prefix>] [-c (concatenate only)] [-v (verbose)]')
+  help = print('concatMyVideos.py -d <directory> [-p <sub-dir-search-prefix>] [-c (concatenate only)] [-o <output-directory-path>] [-v (verbose)]')
   path = ''
   prefix = ''
   verbose = False
@@ -163,14 +163,14 @@ def main(argv):
     os.makedirs(temppath)
 
     # file for writing down the list of created files, which will be later concatenated with ffmpeg
-    concatFile = open(os.path.join(temppath, "concatList.txt"), "w")
-    processVideo = Process(temppath, concatFile, verbose)
-    processVideo.recurse(path, prefix)
-    concatFile.close()
+    concat_file = open(os.path.join(temppath, "concatList.txt"), "w")
+    process_video = Process(temppath, concat_file, verbose)
+    process_video.recurse(path, prefix)
+    concat_file.close()
   else:
-    processVideo = Process(temppath, None, verbose)
+    process_video = Process(temppath, None, verbose)
 
-  processVideo.concatenate(prefix, output_path)
+  process_video.concatenate(prefix, output_path)
 
   print("===================================")
   print("=====   PROCESSING FINISHED   =====")
